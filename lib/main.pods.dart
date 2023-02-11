@@ -1,4 +1,6 @@
 
+import 'dart:math';
+
 import 'package:english_words/english_words.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -22,15 +24,19 @@ class HelloMessager extends _$HelloMessager {
 @Riverpod()
 class WordTab extends _$WordTab {
   @override
-  List<String> build() => ['bonjour','au revoir','demain','aujourd\'hui'];
+  SayHello build() => SayHello(3);
 
-  void addBar(String word) {
-    state = [...state, word];
+  void addBar(WordPair word) {
+    final array = <WordPair>[...state.randomWord, WordPair("first", "second")];
+    final cp = SayHello.copy(array);
+    state = cp;
   }
 
-  void remove(int index){
-     state.removeAt(index);
-    state = state.toList();
+  void remove(int index) {
+    final array = [...state.randomWord];
+    array.removeAt(index);
+    final cp = SayHello.copy(array);
+    state = cp;
   }
 }
 

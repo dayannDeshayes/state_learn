@@ -47,20 +47,20 @@ abstract class _$HelloMessager extends AutoDisposeNotifier<String> {
   String build();
 }
 
-String _$WordTabHash() => r'bc31adb495f06b10165d2ca0c1db7871a00f3ce5';
+String _$WordTabHash() => r'cb79ec2dad901f56e2987d1d4339852943d20484';
 
 /// See also [WordTab].
-final wordTabProvider = AutoDisposeNotifierProvider<WordTab, List<String>>(
+final wordTabProvider = AutoDisposeNotifierProvider<WordTab, SayHello>(
   WordTab.new,
   name: r'wordTabProvider',
   debugGetCreateSourceHash:
       const bool.fromEnvironment('dart.vm.product') ? null : _$WordTabHash,
 );
-typedef WordTabRef = AutoDisposeNotifierProviderRef<List<String>>;
+typedef WordTabRef = AutoDisposeNotifierProviderRef<SayHello>;
 
-abstract class _$WordTab extends AutoDisposeNotifier<List<String>> {
+abstract class _$WordTab extends AutoDisposeNotifier<SayHello> {
   @override
-  List<String> build();
+  SayHello build();
 }
 
 String _$helloWorldHash() => r'8bbe6cff2b7b1f4e1f7be3d1820da793259f7bfc';

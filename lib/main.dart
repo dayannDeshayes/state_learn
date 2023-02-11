@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart';
 import 'package:english_words/english_words.dart';
+import 'package:state/hello.dart';
 import 'main.pods.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final value = ref.watch(helloMessagerProvider);
-    final myTab = ref.watch(wordTabProvider);
+    final wordtab = ref.watch(wordTabProvider);
 
     // ref.read(helloMessagerProvider.notifier).goodbye();
     return MaterialApp(
@@ -44,7 +45,7 @@ class MyApp extends ConsumerWidget {
                           fontSize: 20,
                           color: Colors.white,
                           fontWeight: FontWeight.bold
-                          
+
                         )),
                       ),
                     ),
@@ -56,15 +57,15 @@ class MyApp extends ConsumerWidget {
                     icon: const Icon(Icons.add_circle)),
                 Expanded(
                   child: ListView.builder(
-                  itemCount: myTab.length,
+                  itemCount: SayHello.randomWord.length,
                   itemBuilder: (context, i) {
-                    var tab = myTab[i];
+                    var tab = SayHello.randomWord[i];
                     return ListTile(
                       visualDensity: VisualDensity.comfortable,
                       title: Row(
                         children: [
-                          Text('item: '+ tab,style:Theme.of(context).textTheme.bodyMedium,),
-                          Spacer(),
+                          Text('item: $tab',style:Theme.of(context).textTheme.bodyMedium,),
+                          const Spacer(),
                           Text('delete',style:Theme.of(context).textTheme.bodyMedium,),
                           IconButton(
                               onPressed: () => ref.read(wordTabProvider.notifier).remove(i),
@@ -79,7 +80,7 @@ class MyApp extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
-                    onPressed: () => ref.read(wordTabProvider.notifier).addBar('other word'),
+                    onPressed: () => ref.read(wordTabProvider.notifier).addBar(),
                     child: const Text('add a word'),
                   ),
                 )
@@ -104,6 +105,8 @@ class MyApp extends ConsumerWidget {
     );*/
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -116,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = GeneratorPage();
+        page = const GeneratorPage();
         break;
       case 1:
         page = const LikePage();
@@ -132,12 +135,12 @@ class _MyHomePageState extends State<MyHomePage> {
             SafeArea(
               child: NavigationRail(
                 extended: constraints.maxWidth >= 600,
-                destinations: [
-                  const NavigationRailDestination(
+                destinations: const [
+                  NavigationRailDestination(
                     icon: Icon(Icons.home),
                     label: Text('Home'),
                   ),
-                  const NavigationRailDestination(
+                  NavigationRailDestination(
                     icon: Icon(Icons.favorite),
                     label: Text('Favorites'),
                   ),
@@ -197,6 +200,8 @@ class LikePage extends StatelessWidget {
 }
 
 class GeneratorPage extends StatelessWidget {
+  const GeneratorPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     //context représente le contexte dans lequel l'application s'exécute, il est généralement passé à travers les widgets dans la structure de l'arbre de widgets.
